@@ -21,4 +21,4 @@ def get_files_info(working_directory, directory="."):
 
         return result
     except Exception as e:
-        print("Error:", e)
+        return f"Error: {e}"
