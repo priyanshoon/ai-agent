@@ -28,3 +28,9 @@ Add your `GEMINI_API_KEY` in `.env` file.
 uv run main.py "your prompt"
 uv run main.py "your prompt" --verbose # to see every details (tokens consumed etc...)
 ```
+
+# To-Do -
+- [X] LLM Setup
+- [X] Create functions for AI Agent
+- [X] Create function for calling function
+- [ ] Create a feedback loop
