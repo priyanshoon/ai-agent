@@ -33,4 +33,4 @@ uv run main.py "your prompt" --verbose # to see every details (tokens consumed e
 - [X] LLM Setup
 - [X] Create functions for AI Agent
 - [X] Create function for calling function
-- [ ] Create a feedback loop
+- [X] Create a feedback loop
