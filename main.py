@@ -27,7 +27,26 @@ def main():
     if args.verbose:
         print(f"User prompt: {args.user_prompt}\n")
 
-    generate_content(client, messages, args.verbose)
+    for _ in range(20):
+        response = generate_content(client, messages, args.verbose)
+        response_can = response.candidates
+        if response_can:
+            for candidate in response_can:
+                if candidate.content:
+                    messages.append(candidate.content)
+        if not response.function_calls:
+            print("Final response:")
+            print(response.text)
+            return
+
+        function_responses = []
+        for function_call in response.function_calls:
+            result = call_function(function_call, args.verbose)
+            function_responses.append(result.parts[0])
+
+        messages.append(types.Content(role="user", parts=function_responses))
+
+    print("Max iterations reached without a final response")
 
 
 def generate_content(client, messages, verbose):
@@ -59,11 +78,10 @@ def generate_content(client, messages, verbose):
 
             function_responses.append(function_call_result.parts[0])
 
-            if verbose:
-                print(f"-> {function_call_result.parts[0].function_response.response}")
-    else:
-        print("Response:")
-        print(response.text)
+            # if verbose:
+            #     print(f"-> {function_call_result.parts[0].function_response.response}")
+
+    return response
 
 
 if __name__ == "__main__":
