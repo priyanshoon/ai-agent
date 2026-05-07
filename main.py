@@ -42,7 +42,8 @@ def main():
         function_responses = []
         for function_call in response.function_calls:
             result = call_function(function_call, args.verbose)
-            function_responses.append(result.parts[0])
+            if result.parts is not None:
+                function_responses.append(result.parts[0])
 
         messages.append(types.Content(role="user", parts=function_responses))
 
